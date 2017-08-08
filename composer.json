@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {
+          "mvc\\": "vendor/surakit/mvc",
+          "app\\": "app"
+        }
+    }
+}
