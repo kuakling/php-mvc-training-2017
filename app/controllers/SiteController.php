@@ -11,7 +11,7 @@ class SiteController extends \mvc\web\Controller
   {
     //select * from user where username="staff" or id = 1
     $model = User::find()->where("username = 'staff'")->orWhere('id = 1')->all();
-    return $this->render('site/index', [
+    return $this->render('index', [
       'model' => $model
     ]);
   }

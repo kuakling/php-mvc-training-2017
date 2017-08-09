@@ -33,13 +33,16 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Login</a></li>
+              <li><a href="?r=admin/product/index">Admin</a></li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
-      <div class="row" style="background-color: brown; color:white; height: 100px;">
-        <div class="container">
-          <h1>My e-Commerce</h1>
+      <div class="container-fluid">
+        <div class="row" style="background-color: brown; color:white; height: 100px;">
+          <div class="container">
+            <h1>My e-Commerce</h1>
+          </div>
         </div>
       </div>
     </header>

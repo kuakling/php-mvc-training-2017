@@ -3,7 +3,7 @@ return [
   'modules' => [
     'admin' => [
       'workspace' => 'admin',
-      'class' => '\app\modules\admin\AdminModule'
+      'class' => 'app\modules\admin\AdminModule'
     ]
   ],
   'layout' => [

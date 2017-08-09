@@ -28,20 +28,21 @@ class Application {
       $exp = array_values($exp);
     }
 
-    $moduleClass = new $moduleClassName;
-    Mvc::$app->layoutPath = $moduleClass->layoutPath;
-    echo __FILE__.' '.Mvc::$app->layoutPath.'<br />';
-
     $ctrlName = ucfirst($exp[0]);
     $methName = (isset($exp[1])) ? $exp[1] : 'index';
     $actionName = 'action'.ucfirst($methName);
 
-    $controllerFile = $appDir.'/controllers/'.$ctrlName.'Controller.php';
-
     $controllerNamespace = 'app\\'.$moduleWorkSpace.'controllers\\'.$ctrlName.'Controller';
+
+    $moduleClass = new $moduleClassName([
+      'loader' => [$controllerNamespace, $actionName, $_GET]
+    ]);
+    // Mvc::$app->layoutPath = $moduleClass->layoutPath;
+    $app = Mvc::$app;
+
     try{
-      if(file_exists($controllerFile)){
-        $controller = new $controllerNamespace;
+      if(class_exists($controllerNamespace)){
+        $controller = new $controllerNamespace($app);
         if(method_exists($controller, $actionName)){
           unset($_GET['r']);
           call_user_func_array([$controller, $actionName], $_GET);
