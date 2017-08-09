@@ -40,4 +40,29 @@ class Connection
       echo $e->getMessage();
     }
   }
+
+  private function disconnect()
+  {
+    $this->pdo = null;
+  }
+
+  public function createCommand($sql, $params=[])
+  {
+    try {
+      $exec = $this->pdo->prepare($sql);
+      $exec->execute($params) or die(print_r($this->pdo->errorInfo()[2], true));
+      $exec->setFetchMode(PDO::FETCH_OBJ);
+
+      return $exec;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+
+  }
+
+
+  public function __destruct()
+  {
+    $this->disconnect();
+  }
 }
