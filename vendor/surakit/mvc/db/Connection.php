@@ -35,7 +35,7 @@ class Connection
   {
     try {
       $this->pdo = new PDO($this->dsn, $this->username, $this->password);
-      $this->pdo->exec("SET CHARECTOR SET " . $this->charset);
+      $this->pdo->exec("SET CHARACTER SET " . $this->charset);
     } catch(PDOException $e) {
       echo $e->getMessage();
     }

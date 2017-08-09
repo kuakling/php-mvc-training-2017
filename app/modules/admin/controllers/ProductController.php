@@ -1,7 +1,8 @@
 <?php
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use app\models\Product;
+use Mvc;
 
 class ProductController extends \mvc\web\Controller
 {
