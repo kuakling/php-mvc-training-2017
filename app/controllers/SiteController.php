@@ -6,11 +6,17 @@ use app\models\User;
 
 class SiteController extends \mvc\web\Controller
 {
-  public function index()
+
+  public function actionIndex()
   {
-    $model = User::find()->where("username = 'staff'")->orWhere("id = 1")->all();
+    $model = User::find()->all();
     return $this->render('site/index', [
       'model' => $model
     ]);
+  }
+
+  public function test()
+  {
+
   }
 }

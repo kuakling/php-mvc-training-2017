@@ -5,7 +5,7 @@ namespace mvc\web;
 class Controller
 {
 	public $title='';
-	
+
   public function render($view, $params=[])
   {
     extract($params);

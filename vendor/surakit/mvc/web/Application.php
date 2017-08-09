@@ -5,7 +5,7 @@ class Application {
 
   function __construct($config)
   {
-    
+
   }
   public function run()
   {
@@ -14,6 +14,7 @@ class Application {
 
     $ctrlName = ucfirst($exp[0]);
     $methName = (isset($exp[1])) ? $exp[1] : 'index';
+    $actionName = 'action'.ucfirst($methName);
 
     $appDir = realpath(__DIR__.'/../../../../app');
     $controllerFile = $appDir.'/controllers/'.$ctrlName.'Controller.php';
@@ -22,9 +23,9 @@ class Application {
     try{
       if(file_exists($controllerFile)){
         $controller = new $controllerNamespace;
-        if(method_exists($controller, $methName)){
+        if(method_exists($controller, $actionName)){
           unset($_GET['r']);
-          call_user_func_array([$controller, $methName], $_GET);
+          call_user_func_array([$controller, $actionName], $_GET);
         }else{
           throw new \Exception('404 Method not found.');
         }
