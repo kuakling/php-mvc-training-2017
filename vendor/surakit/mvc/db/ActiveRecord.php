@@ -77,6 +77,14 @@ class ActiveRecord
     return $class;
   }
 
+  public function where($condition = null)
+  {
+    $this->queryClass->where = ' WHERE '.$condition;
+    $this->queryClass->sqlCmd['where'] = ' WHERE '.$condition;
+
+    return static::$class;
+  }
+
   public function andWhere($condition = null)
   {
     if($condition){

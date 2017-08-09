@@ -8,7 +8,7 @@ class SiteController extends \mvc\web\Controller
 {
   public function index()
   {
-    $model = User::find();
+    $model = User::find()->where("username = 'staff'")->orWhere("id = 1")->all();
     return $this->render('site/index', [
       'model' => $model
     ]);

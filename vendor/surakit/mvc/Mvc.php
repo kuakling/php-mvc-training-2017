@@ -22,7 +22,7 @@ class Mvc
   public function getDb()
   {
     $conn = new \mvc\db\Connection($this->config);
-    return $conn->pdo;
+    return $conn;
   }
 }
 
