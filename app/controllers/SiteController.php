@@ -1,11 +1,16 @@
 <?php
 namespace app\controllers;
 
-class SiteController
-{
+use Mvc;
+use app\models\User;
 
+class SiteController extends \mvc\web\Controller
+{
   public function index()
   {
-    echo 'ยินดีต้อนรับจ้า';
+    $model = User::find();
+    return $this->render('site/index', [
+      'model' => $model
+    ]);
   }
 }

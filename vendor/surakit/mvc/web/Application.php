@@ -2,6 +2,11 @@
 namespace mvc\web;
 
 class Application {
+
+  function __construct($config)
+  {
+    
+  }
   public function run()
   {
     $r = (array_key_exists('r', $_GET)) ? rtrim($_GET['r'], '/') : 'site/index';
