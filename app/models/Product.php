@@ -21,12 +21,17 @@ class Product extends \mvc\db\ActiveRecord
         $tmp_name = $_FILES["image"]["tmp_name"];
         $name = time().'_'.basename($_FILES['image']['name']);
         if(move_uploaded_file($tmp_name, "$uploads_dir/$name")){
+          if($this->image){
+            unlink("$uploads_dir/$this->image");
+          }
           $this->image = $name;
           return true;
+        }else{
+          return false;
         }
       }
     }
-    return false;
+    return true;
   }
 }
 

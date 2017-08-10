@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2017 at 04:31 AM
+-- Generation Time: Aug 10, 2017 at 11:53 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -72,14 +72,26 @@ CREATE TABLE `orders_product` (
 CREATE TABLE `product` (
   `id` int(8) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `product_detail` text NOT NULL,
+  `detail` text NOT NULL,
   `price` float NOT NULL,
   `qty` int(20) NOT NULL,
   `size` text NOT NULL,
   `type` int(20) NOT NULL,
   `image` varchar(200) NOT NULL,
-  `supplier` int(10) NOT NULL
+  `supplier` int(10) NOT NULL,
+  `price_buy` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `detail`, `price`, `qty`, `size`, `type`, `image`, `supplier`, `price_buy`) VALUES
+(5, 'Samsung Galaxy s8', 'kjhkjhkj', 35000, 10, '5.5 นิ้ว', 2, '', 2, 34000),
+(6, 'iPhone', '9999999', 23123, 50000, '5.5 นิ้ว', 1, '1502358200_iphone6s-1.jpg', 2, 1000),
+(7, 'สามี', 'dfoigk;ldf', 500, 1, '170 cm', 2, '', 1, 0),
+(8, 'HP Pavilion 5500', 'dsfsdfsdf', 25000, 55, 'ATX', 4, '', 1, 2100),
+(9, 'Leonics Blue-800', 'เครื่องสำรองไฟ', 2600, 45, '2000 VA', 3, '1502358499_tmm_logo.jpg', 2, 2300);
 
 -- --------------------------------------------------------
 
@@ -91,6 +103,16 @@ CREATE TABLE `product_type` (
   `id` int(11) NOT NULL,
   `type_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product_type`
+--
+
+INSERT INTO `product_type` (`id`, `type_name`) VALUES
+(1, 'โทรศัพท์'),
+(2, 'เครื่องซักผ้า'),
+(3, 'ทีวี'),
+(4, 'ตู้เย็น');
 
 -- --------------------------------------------------------
 
@@ -105,6 +127,14 @@ CREATE TABLE `supplier` (
   `telephone` varchar(20) NOT NULL,
   `detail` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`id`, `supplier_name`, `address`, `telephone`, `detail`) VALUES
+(1, 'หาดใหญ่เคหะภัณฑ์', '', '0746589522', ''),
+(2, 'กรุงเทพฯ', '', '021598745', '');
 
 -- --------------------------------------------------------
 
@@ -208,17 +238,17 @@ ALTER TABLE `orders_product`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `product_type`
 --
 ALTER TABLE `product_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tracking`
 --

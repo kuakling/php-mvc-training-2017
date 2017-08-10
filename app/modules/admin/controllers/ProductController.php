@@ -19,8 +19,10 @@ class ProductController extends \mvc\web\Controller
     $model = new Product();
     if($_POST) {
       $model->load($_POST);
-      $model->save();
-      header( "location: ?r=admin/product/index" );
+      if($model->upload()){
+        $model->save();
+        header( "location: ?r=admin/product/index" );
+      }
       exit(0);
     }else{
       $this->render('create', [
