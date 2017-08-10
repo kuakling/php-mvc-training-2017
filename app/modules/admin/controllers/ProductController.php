@@ -34,8 +34,10 @@ class ProductController extends \mvc\web\Controller
     $model = Product::find()->where("id = ".$id)->one();
     if($_POST) {
       $model->load($_POST);
-      $model->save();
-      header( "location: ?r=admin/product/update&id=".$id );
+      if($model->upload()){
+        $model->save();
+        header( "location: ?r=admin/product/update&id=".$id );
+      }
       exit(0);
     }else{
       $this->render('update', [
