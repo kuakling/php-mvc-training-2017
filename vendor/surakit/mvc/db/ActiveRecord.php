@@ -14,6 +14,8 @@ class ActiveRecord
   private $_attributes = [];
   private $_oldAttributes;
 
+  public $isNewRecord = true;
+
   public function __get($name)
   {
     if (isset($this->_attributes[$name]) || array_key_exists($name, $this->_attributes)) {
@@ -68,6 +70,7 @@ class ActiveRecord
 
     $class = static::$class;
     $class->queryClass = new Query();
+    $class->isNewRecord = false;
     $class->queryClass->select = "*";
     $class->queryClass->sqlCmd['select'] = "*";
     $class->queryClass->from = static::tableName();
@@ -198,17 +201,56 @@ class ActiveRecord
     return $this;
   }
 
+  public function save()
+  {
+    $attributes = $this->_attributes;
+    $queryClass = new Query();
+    $sql = $this->isNewRecord ? 'INSERT INTO ' : 'UPDATE ';
+    $sql .= '`'.static::tableName().'`';
+    if($this->isNewRecord){
+      $sql .= ' (`'.implode(array_keys($attributes), '`, `').'`) VALUES ("'.implode('", "', $attributes).'")';
+    }else{
+      $sql .= ' SET ';
+      $v = [];
+      foreach ($attributes as $key => $value) {
+        $v[] = '`'.$key.'` = "'.$value.'"';
+      }
+      $sql .= implode(", ", $v);
+      $sql .= ' WHERE `id` = '.$attributes['id'];
+    }
+    // echo $sql; exit();
+    $queryClass->sqlCmd = $sql;
+    $data = $queryClass->saveCommand();
+  }
+
+  public function delete()
+  {
+    $queryClass = new Query();
+    $sql = 'DELETE FROM `'.static::tableName().'` WHERE `id` = '.$this->_attributes['id'];
+    // echo $sql; exit();
+    $queryClass->sqlCmd = $sql;
+    $data = $queryClass->deleteCommand();
+  }
+
   public static function getTableSchema()
   {
-    $tableSchema = static::getDb()
-      ->getSchema()
-      ->getTableSchema(static::tableName());
+    $queryClass = new Query();
+    $sql = "DESCRIBE ".static::tableName();
+    $queryClass->sqlCmd = $sql;
+    $tableSchema = $queryClass->tableSchema();
 
-    if ($tableSchema === null) {
-      throw new InvalidConfigException('The table does not exist: ' . static::tableName());
-    }
 
     return $tableSchema;
+  }
+
+  public function load($arr){
+    $tableSchema = $this->getTableSchema();
+    foreach ($arr as $key => $value) {
+      if(in_array($key, $tableSchema)){
+        $this->$key = $value;
+      }
+    }
+    return true;
   }
 
   public function formName()

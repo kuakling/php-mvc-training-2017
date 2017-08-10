@@ -49,6 +49,33 @@ class Query
         return $exec;
     }
 
+    public function saveCommand($db = null)
+    {
+      if ($db === null) {
+          $db = Mvc::$app->getDb();
+      }
+      $exec = $db->createCommand($this->sqlCmd, $this->params);
+      return $exec;
+    }
+
+    public function deleteCommand($db = null)
+    {
+      if ($db === null) {
+          $db = Mvc::$app->getDb();
+      }
+      $exec = $db->createCommand($this->sqlCmd, $this->params);
+      return $exec;
+    }
+
+    public function tableSchema($db = null)
+    {
+      if ($db === null) {
+          $db = Mvc::$app->getDb();
+      }
+      $exec = $db->createCommand($this->sqlCmd, $this->params);
+      return $exec->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
 }
 
  ?>
