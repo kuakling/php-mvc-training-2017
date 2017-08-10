@@ -21,7 +21,7 @@ class Application {
     $moduleClassName = 'mvc\web\Module';
     if(array_key_exists($exp[0], $this->config['modules'])){
       $moduleClassName = $this->config['modules'][$exp[0]]['class'];
-      
+
       $appDir .= '/modules/'.$this->config['modules'][$exp[0]]['workspace'];
       $moduleWorkSpace= 'modules\\'.$this->config['modules'][$exp[0]]['workspace'].'\\';
       unset($exp[0]);
@@ -40,7 +40,7 @@ class Application {
 
     try{
       if(class_exists($controllerNamespace)){
-        $controller = new $controllerNamespace($app);
+        $controller = new $controllerNamespace();
         if(method_exists($controller, $actionName)){
           unset($_GET['r']);
           call_user_func_array([$controller, $actionName], $_GET);
