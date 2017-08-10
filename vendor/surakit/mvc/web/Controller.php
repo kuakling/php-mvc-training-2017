@@ -5,10 +5,6 @@ use Mvc;
 
 class Controller
 {
-	public function __construct($app)
-	{
-		Mvc::$app = $app;
-	}
 	public $title='';
 
   public function render($view, $params=[])

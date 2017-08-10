@@ -1,8 +1,10 @@
 <?php
 
-class Mvc
+class BaseMvc
 {
   public static $app;
+
+  public static $classMap = [];
 
   public $config = [];
 
@@ -12,11 +14,13 @@ class Mvc
 
   public static function autoload($className)
   {
-    $app = new static;
-    $app::$app = null;
-    $app->config = require(__DIR__ . '/../../../app/config/main.php');
-    $app->setLayout();
-    static::$app = $app;
+    if(static::$app === null){
+      $app = new static;
+      $app::$app = null;
+      $app->config = require(__DIR__ . '/../../../app/config/main.php');
+      static::$app = $app;
+    }
+    static::$app->setLayout();
   }
 
   public function getVersion()
@@ -33,8 +37,8 @@ class Mvc
   public function setLayout()
   {
     if($this->layoutPath === null){
-      // echo 'sldkgjdklgjdlkfjgkldf<hr />';
       $this->layoutPath = $this->config['layout']['path'];
+      // echo 'setLayout() '.$this->layoutPath.'<hr />';
     }
     // if(array_key_exists('file', $layout)){
     //   $this->layoutFile = $layout['file'].'.php';
@@ -42,6 +46,11 @@ class Mvc
     //   $this->layoutFile = $this->config['layout']['file'].'.php';
     // }
   }
+}
+
+class Mvc extends BaseMvc
+{
+
 }
 
 

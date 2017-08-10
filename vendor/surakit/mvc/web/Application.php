@@ -21,7 +21,7 @@ class Application {
     $moduleClassName = 'mvc\web\Module';
     if(array_key_exists($exp[0], $this->config['modules'])){
       $moduleClassName = $this->config['modules'][$exp[0]]['class'];
-      // exit();
+      
       $appDir .= '/modules/'.$this->config['modules'][$exp[0]]['workspace'];
       $moduleWorkSpace= 'modules\\'.$this->config['modules'][$exp[0]]['workspace'].'\\';
       unset($exp[0]);
@@ -37,8 +37,6 @@ class Application {
     $moduleClass = new $moduleClassName([
       'loader' => [$controllerNamespace, $actionName, $_GET]
     ]);
-    // Mvc::$app->layoutPath = $moduleClass->layoutPath;
-    $app = Mvc::$app;
 
     try{
       if(class_exists($controllerNamespace)){
