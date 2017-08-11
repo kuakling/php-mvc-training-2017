@@ -56,6 +56,14 @@ class ActiveRecord
     }
   }
 
+  public function __construct()
+  {
+    $tableSchema = $this->getTableSchema();
+    foreach ($tableSchema as $key => $field) {
+        $this->$field = null;
+    }
+  }
+
   public function hasAttribute($name)
   {
     return isset($this->_attributes[$name]) || in_array($name, $this->getTableSchema());

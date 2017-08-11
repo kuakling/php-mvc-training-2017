@@ -17,6 +17,8 @@ class Application {
     $appDir = realpath(__DIR__.'/../../../../app');
     $exp = explode('/', $r);
 
+    // Mvc::$app->route = $exp;
+
     $moduleWorkSpace = '';
     $moduleClassName = 'mvc\web\Module';
     if(array_key_exists($exp[0], $this->config['modules'])){
@@ -24,12 +26,15 @@ class Application {
 
       $appDir .= '/modules/'.$this->config['modules'][$exp[0]]['workspace'];
       $moduleWorkSpace= 'modules\\'.$this->config['modules'][$exp[0]]['workspace'].'\\';
+      Mvc::$app->route['module'] = $exp[0];
       unset($exp[0]);
       $exp = array_values($exp);
     }
 
     $ctrlName = ucfirst($exp[0]);
+    Mvc::$app->route['controller'] = $exp[0];
     $methName = (isset($exp[1])) ? $exp[1] : 'index';
+    Mvc::$app->route['action'] = $exp[1];
     $actionName = 'action'.ucfirst($methName);
 
     $controllerNamespace = 'app\\'.$moduleWorkSpace.'controllers\\'.$ctrlName.'Controller';

@@ -53,11 +53,35 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">Shop Name</p>
+              <?php
+                $menus = [
+                  ['label' => 'สินค้า', 'link' => 'admin/product/index'],
+                  ['label' => 'ประเภทสินค้า', 'link' => 'admin/producttype/index'],
+                  ['label' => 'คู่ค้า', 'link' => 'admin/supplier/index'],
+                  ['label' => 'การสั่งซื้อ', 'link' => 'admin/orders/index'],
+                  ['label' => 'การจัดส่งสินค้า', 'link' => 'admin/tracking/index'],
+                  ['label' => 'ผู้ใช้ระบบ', 'link' => 'admin/user/index'],
+                ];
+              ?>
+                <!-- <p class="lead">Shop Name</p> -->
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                  <?php $route = Mvc::$app->route; ?>
+                  <?php foreach ($menus as $key => $menu) : ?>
+                    <?php
+                      $exp = explode('/', $menu['link']);
+                      $cls = '';
+                      if($exp[0] === $route['module'] && $exp[1] === $route['controller']){
+                        $cls = ' active';
+                      }
+                    ?>
+                  <a href="?r=<?=$menu['link']?>" class="list-group-item<?=$cls;?>"><?=$menu['label']?></a>
+                  <?php endforeach; ?>
+                    <!-- <a href="#" class="list-group-item active">สินค้า</a>
+                    <a href="#" class="list-group-item">ประเภทสินค้า</a>
+                    <a href="#" class="list-group-item">คู่ค้า</a>
+                    <a href="#" class="list-group-item">การสั่งซื้อ</a>
+                    <a href="#" class="list-group-item">การจัดส่งสินค้า</a>
+                    <a href="#" class="list-group-item">ผู้ใช้ระบบ</a> -->
                 </div>
             </div>
 

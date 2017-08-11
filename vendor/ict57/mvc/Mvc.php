@@ -12,6 +12,8 @@ class BaseMvc
 
   public $layoutFile = 'main';
 
+  public $route = [];
+
   public static function autoload($className)
   {
     if(static::$app === null){

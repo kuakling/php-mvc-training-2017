@@ -10,7 +10,7 @@ class ProductController extends \mvc\web\Controller
   {
   	$currentPage = $page;
   	$page--;
-  	$pageSize = 2;
+  	$pageSize = 3;
   	$pageOffset = $pageSize * $page;
 
   	$product = Product::find()
@@ -21,7 +21,7 @@ class ProductController extends \mvc\web\Controller
 
     $model = $product->all();
     $rowsCount = $product->count();
-    $pages = ceil($rowsCount/2);
+    $pages = ceil($rowsCount/$pageSize);
     return $this->render('index', [
       'model' => $model,
       'currentPage' => intval($currentPage),
