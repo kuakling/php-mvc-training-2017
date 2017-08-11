@@ -17,8 +17,8 @@
          <th scope="row"><?php echo $type->id; ?></th>
          <td><?php echo $type->type_name; ?></td>
          <td>
-           <a href="?r=admin/producttype/update&id=<?= $product->id; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-           <a href="?r=admin/producttype/delete&id=<?= $product->id; ?>" onClick="return confirm('Are you sure?')"><i class="glyphicon glyphicon-trash"></i></a>
+           <a href="?r=admin/producttype/update&id=<?= $type->id; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+           <a href="?r=admin/producttype/delete&id=<?= $type->id; ?>" onClick="return confirm('Are you sure?')"><i class="glyphicon glyphicon-trash"></i></a>
          </td>
       </tr>
     <?php endforeach ?>
