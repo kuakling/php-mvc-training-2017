@@ -1,4 +1,4 @@
-<form method="post">
+<form method="post" id="from-product-type">
   <div class="form-group">
     <label for="name">ชื่อประเภทสินค้า</label>
     <input
@@ -16,10 +16,14 @@
     บันทึก
   </button>
 </form>
+
 <?php
-$this->registerCss("
-body{
-  background-color: red;
-}
+$this->registerJs("check-form", "
+$( \"#from-product-type\" ).submit(function( e ) {
+  if($(\"#type_name\").val() == ''){
+    alert('อย่าใส่ค่าว่างสิ');
+    return false;
+  }
+});
 ");
  ?>
