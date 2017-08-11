@@ -12,7 +12,14 @@
   </div>
 
   <button type="submit" class="btn btn-primary">
-    <i class="glyphicon glyphicon-ok"></i> 
+    <i class="glyphicon glyphicon-ok"></i>
     บันทึก
   </button>
 </form>
+<?php
+$this->registerCss("
+body{
+  background-color: red;
+}
+");
+ ?>

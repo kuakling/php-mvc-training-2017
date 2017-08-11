@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <?php $this->head(); ?>
     <title>Admin Page</title>
 
 </head>
@@ -106,7 +106,7 @@
 
     <script src="assets/jquery-3.2.1.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
+    <?php $this->endBody() ?>
 </body>
 
 </html>

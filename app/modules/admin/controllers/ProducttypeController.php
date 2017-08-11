@@ -46,6 +46,13 @@ class ProducttypeController extends \mvc\web\Controller
     }
   }
 
+  public function actionDelete($id)
+  {
+    $model = ProductType::find()->where("id = ".$id)->one();
+    $model->delete();
+    header( "location: ?r=admin/producttype/index" );
+  }
+
 }
 
 

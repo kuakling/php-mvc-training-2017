@@ -9,6 +9,14 @@ class Controller
 
 	public $usedRender = false;
 
+	public $js = [];
+
+	public $jsFile = [];
+
+	public $css = [];
+
+	public $cssFile = [];
+
   public function render($view, $params=[])
   {
 		$className = get_class($this);
@@ -40,6 +48,26 @@ class Controller
 		}
   }
 
+	public function registerJs($key, $js='')
+	{
+		$this->js[$key] = $js;
+	}
+
+	public function registerJsFile($file)
+	{
+		$this->jsFile[] = $file;
+	}
+
+	public function registerCss($css='')
+	{
+		$this->css[] = $css;
+	}
+
+	public function registerCssFile($file)
+	{
+		$this->cssFile[] = $file;
+	}
+
   public function beginPage()
   {
 
@@ -47,7 +75,17 @@ class Controller
 
   public function head()
   {
+		foreach ($this->cssFile as $cssFile) {
+			echo '<link href="'.$cssFile.'" rel="stylesheet">';
+			echo "\n";
+		}
 
+		if(count($this->css) > 0){
+			echo '<style>';
+			$css = implode($this->css, "\n");
+			echo $css;
+			echo '</style>';
+		}
   }
 
   public function beginBody()
@@ -57,7 +95,17 @@ class Controller
 
   public function endBody()
   {
+		foreach ($this->jsFile as $jsFile) {
+			echo '<script src="'.$jsFile.'"></script>';
+			echo "\n";
+		}
 
+		if(count($this->js) > 0){
+			echo '<script type="text/javascript">';
+			$js = implode($this->js, "\n");
+			echo $js;
+			echo '</script>';
+		}
   }
 
   public function endPage()
