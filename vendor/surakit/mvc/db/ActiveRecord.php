@@ -11,6 +11,8 @@ class ActiveRecord
 
   public static $class;
 
+  public $queryClass = null;
+
   private $_attributes = [];
   private $_oldAttributes;
 
@@ -18,21 +20,26 @@ class ActiveRecord
 
   public function __get($name)
   {
+    // echo '__get '.$name;
     if (isset($this->_attributes[$name]) || array_key_exists($name, $this->_attributes)) {
       return $this->_attributes[$name];
+    }else{
+      $propFnc = 'get'.ucfirst($name);
+      return $this->$name = $this->$propFnc();
     }
     return null;
   }
 
   public function __set($name, $value)
   {
-    /*if ($this->hasAttribute($name)) {
+    // echo '__set '.$name.' = '.$value;
+    if ($this->hasAttribute($name)) {
         $this->_attributes[$name] = $value;
     } else {
-        parent::__set($name, $value);
-    }*/
+        $this->$name = $value;
+    }
 
-    $this->_attributes[$name] = $value;
+    // $this->_attributes[$name] = $value;
   }
 
   public function __unset($name)
@@ -51,7 +58,7 @@ class ActiveRecord
 
   public function hasAttribute($name)
   {
-    return isset($this->_attributes[$name]) || in_array($name, $this->attributes());
+    return isset($this->_attributes[$name]) || in_array($name, $this->getTableSchema());
   }
 
   public function setAttribute($name, $value)
@@ -72,17 +79,28 @@ class ActiveRecord
     $class->queryClass = new Query();
     $class->isNewRecord = false;
     $class->queryClass->select = "*";
-    $class->queryClass->sqlCmd['select'] = "*";
+    // $class->queryClass->sqlCmd['select'] = "*";
     $class->queryClass->from = static::tableName();
-    $class->queryClass->sqlCmd['from'] = static::tableName();
+    // $class->queryClass->sqlCmd['from'] = static::tableName();
 
 
     return $class;
   }
 
+  public function select($fields=[])
+  {
+    $selectSql = '*';
+    if (count($fields) > 0) {
+      $selectSql = implode('`, `', $fields);
+    }
+    $this->queryClass->select = "`".$selectSql."`";
+
+    return static::$class;
+  }
+
   public function where($condition = null)
   {
-    $this->queryClass->where = ' WHERE '.$condition;
+    // $this->queryClass->where = ' WHERE '.$condition;
     $this->queryClass->sqlCmd['where'] = ' WHERE '.$condition;
 
     return static::$class;
@@ -92,7 +110,7 @@ class ActiveRecord
   {
     if($condition){
       if(!empty($this->queryClass->where)){
-        $this->queryClass->where .= ' AND '.$condition;
+        // $this->queryClass->where .= ' AND '.$condition;
         $this->queryClass->sqlCmd['where'] .= ' AND '.$condition;
       }else{
         $this->queryClass->where = ' WHERE '.$condition;
@@ -107,10 +125,10 @@ class ActiveRecord
   {
     if($condition){
       if(!empty($this->queryClass->where)){
-        $this->queryClass->where .= ' OR '.$condition;
+        // $this->queryClass->where .= ' OR '.$condition;
         $this->queryClass->sqlCmd['where'] .= ' OR '.$condition;
       }else{
-        $this->queryClass->where = ' WHERE '.$condition;
+        // $this->queryClass->where = ' WHERE '.$condition;
         $this->queryClass->sqlCmd['where'] = ' WHERE '.$condition;
       }
     }
@@ -165,9 +183,9 @@ class ActiveRecord
     return static::$class;
   }
 
-  public function orderBy($field)
+  public function orderBy($field, $type='ASC')
   {
-    $this->setSqlCommand('orderBy', " ORDER BY $field");
+    $this->setSqlCommand('orderBy', " ORDER BY $field $type");
 
     return static::$class;
   }
@@ -199,6 +217,28 @@ class ActiveRecord
     $this->_oldAttributes = (array)$data;
 
     return $this;
+  }
+
+  public function count()
+  {
+    $this->queryClass->select = 'count(*) as count';
+    $this->offset(0);
+    $res = $this->one();
+    return $res->count;
+  }
+
+  public function hasOne($className, $pk, $fk)
+  {
+    $v = $this->$fk;
+    $model = $className::find()->where("`".$pk."` = '".$v."'")->one();
+    return $model;
+  }
+
+  public function hasMany($className, $pk, $fk)
+  {
+    $v = $this->$fk;
+    $model = $className::find()->where("`".$pk."` = '".$v."'")->all();
+    return $model;
   }
 
   public function save()
@@ -257,6 +297,12 @@ class ActiveRecord
   {
     $reflect = new \ReflectionClass($this);
     return $reflect->getShortName();
+  }
+
+  public static function className()
+  {
+    $reflect = new \ReflectionClass(new static);
+    return $reflect->getName();
   }
 }
 

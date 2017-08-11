@@ -6,11 +6,26 @@ use Mvc;
 
 class ProductController extends \mvc\web\Controller
 {
-  public function actionIndex()
+  public function actionIndex($page=1)
   {
-    $model = Product::find()->all();
+  	$currentPage = $page;
+  	$page--;
+  	$pageSize = 2;
+  	$pageOffset = $pageSize * $page;
+
+  	$product = Product::find()
+    	// ->select(['id', 'name'])
+    	->limit($pageSize)
+    	->offset($pageOffset)
+    	->orderBy('id', 'DESC');
+
+    $model = $product->all();
+    $rowsCount = $product->count();
+    $pages = ceil($rowsCount/2);
     return $this->render('index', [
-      'model' => $model
+      'model' => $model,
+      'currentPage' => intval($currentPage),
+      'pages' => intval($pages)
     ]);
   }
 

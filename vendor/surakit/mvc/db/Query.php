@@ -39,12 +39,12 @@ class Query
             'limit',
             'offset'
         ];
-        $sql = "SELECT ".$this->select." FROM ".$this->from;
+        $sql = "SELECT ".$this->select." FROM `".$this->from."`";
         foreach ($sqlCmdOrder as $key => $cmd) {
             if(isset($this->sqlCmd[$cmd]))
             $sql .= $this->sqlCmd[$cmd];
         }
-        //echo $sql."<br />";
+        // echo $sql."<br />"; exit();
         $exec = $db->createCommand($sql, $this->params);
         return $exec;
     }

@@ -33,6 +33,11 @@ class Product extends \mvc\db\ActiveRecord
     }
     return true;
   }
+
+  public function getTbType()
+  {
+    return $this->hasOne(ProductType::className(), 'id', 'type');
+  }
 }
 
  ?>
