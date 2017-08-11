@@ -76,12 +76,6 @@
                     ?>
                   <a href="?r=<?=$menu['link']?>" class="list-group-item<?=$cls;?>"><?=$menu['label']?></a>
                   <?php endforeach; ?>
-                    <!-- <a href="#" class="list-group-item active">สินค้า</a>
-                    <a href="#" class="list-group-item">ประเภทสินค้า</a>
-                    <a href="#" class="list-group-item">คู่ค้า</a>
-                    <a href="#" class="list-group-item">การสั่งซื้อ</a>
-                    <a href="#" class="list-group-item">การจัดส่งสินค้า</a>
-                    <a href="#" class="list-group-item">ผู้ใช้ระบบ</a> -->
                 </div>
             </div>
 

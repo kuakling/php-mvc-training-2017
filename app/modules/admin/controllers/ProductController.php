@@ -14,7 +14,6 @@ class ProductController extends \mvc\web\Controller
   	$pageOffset = $pageSize * $page;
 
   	$product = Product::find()
-    	// ->select(['id', 'name'])
     	->limit($pageSize)
     	->offset($pageOffset)
     	->orderBy('id', 'DESC');
