@@ -6,6 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'app\\controllers\\UserController' => $baseDir . '/app/controllers/UserController.php',
-    'mvc\\web\\Application' => $vendorDir . '/surakit/mvc/web/Application.php',
 );

@@ -20,7 +20,7 @@ class ComposerStaticInit2f1948babc1199bde95e3da7e10ae5fd
     public static $prefixDirsPsr4 = array (
         'mvc\\' => 
         array (
-            0 => __DIR__ . '/..' . '/surakit/mvc',
+            0 => __DIR__ . '/..' . '/ict57/mvc',
         ),
         'app\\' => 
         array (
@@ -28,17 +28,11 @@ class ComposerStaticInit2f1948babc1199bde95e3da7e10ae5fd
         ),
     );
 
-    public static $classMap = array (
-        'app\\controllers\\UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
-        'mvc\\web\\Application' => __DIR__ . '/..' . '/surakit/mvc/web/Application.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit2f1948babc1199bde95e3da7e10ae5fd::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit2f1948babc1199bde95e3da7e10ae5fd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2f1948babc1199bde95e3da7e10ae5fd::$classMap;
 
         }, null, ClassLoader::class);
     }
