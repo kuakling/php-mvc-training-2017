@@ -55,7 +55,8 @@ class Query
           $db = Mvc::$app->getDb();
       }
       $exec = $db->createCommand($this->sqlCmd, $this->params);
-      return $exec;
+      return $db->pdo;
+      // return $exec;
     }
 
     public function deleteCommand($db = null)

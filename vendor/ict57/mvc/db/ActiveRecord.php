@@ -221,6 +221,7 @@ class ActiveRecord
   public function one()
   {
     $data = $this->queryClass->executeCommand()->fetch();
+    if(!$data){ return null; }
     $this->_attributes = (array)$data;
     $this->_oldAttributes = (array)$data;
 
@@ -269,6 +270,9 @@ class ActiveRecord
     // echo $sql; exit();
     $queryClass->sqlCmd = $sql;
     $data = $queryClass->saveCommand();
+    if($this->isNewRecord){
+      $this->id = $data->lastInsertId();
+    }
   }
 
   public function delete()

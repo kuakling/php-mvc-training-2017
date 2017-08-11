@@ -13,6 +13,8 @@ class Application {
   }
   public function run()
   {
+    session_start();
+
     $r = (array_key_exists('r', $_GET)) ? rtrim($_GET['r'], '/') : 'site/index';
     $appDir = realpath(__DIR__.'/../../../../app');
     $exp = explode('/', $r);

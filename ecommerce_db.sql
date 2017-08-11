@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2017 at 05:25 AM
+-- Generation Time: Aug 11, 2017 at 11:50 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -31,7 +31,7 @@ CREATE TABLE `orders` (
   `date` datetime NOT NULL,
   `amount` int(10) NOT NULL,
   `status` varchar(30) NOT NULL,
-  `customer_id` int(20) NOT NULL
+  `user_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -97,7 +97,7 @@ INSERT INTO `product_type` (`id`, `type_name`) VALUES
 (1, 'โทรศัพท์'),
 (2, 'เครื่องซักผ้า'),
 (3, 'ทีวี'),
-(4, 'ตู้เย็น');
+(4, '546546456');
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,8 @@ CREATE TABLE `supplier` (
 
 INSERT INTO `supplier` (`id`, `supplier_name`, `address`, `telephone`, `detail`) VALUES
 (1, 'หาดใหญ่เคหะภัณฑ์', '', '0746589522', ''),
-(2, 'กรุงเทพฯ', '', '021598745', '');
+(2, 'กรุงเทพฯ', '', '021598745', ''),
+(4, 'สกาย', 'ปัตตานี', '0259822656', 'อด้่่่เเดกกก');
 
 -- --------------------------------------------------------
 
@@ -239,12 +240,12 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_type`
 --
 ALTER TABLE `product_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tracking`
 --
