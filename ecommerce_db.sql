@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2017 at 11:53 AM
+-- Generation Time: Aug 11, 2017 at 05:25 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -19,21 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecommerce_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customer`
---
-
-CREATE TABLE `customer` (
-  `id` int(11) NOT NULL,
-  `fullname` varchar(50) NOT NULL,
-  `address` text NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `telephone` varchar(20) NOT NULL,
-  `email` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -160,18 +145,28 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `active` tinyint(1) NOT NULL
+  `active` tinyint(1) NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profile`
+--
+
+CREATE TABLE `user_profile` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `telephone` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -216,14 +211,15 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -258,6 +254,11 @@ ALTER TABLE `tracking`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_profile`
+--
+ALTER TABLE `user_profile`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
